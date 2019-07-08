@@ -3,9 +3,8 @@ import 'package:flutter/material.dart';
 class InputWidget extends StatelessWidget {
   final double topRight;
   final double bottomRight;
-  final userNameController = TextEditingController();
 
-  InputWidget(this.topRight, this.bottomRight, userNameController);
+  InputWidget(this.topRight, this.bottomRight);
 
   @override
   Widget build(BuildContext context) {
@@ -18,18 +17,36 @@ class InputWidget extends StatelessWidget {
           color: Colors.white,
           shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.only(
-                  bottomRight: Radius.circular(bottomRight),
+                  bottomLeft: Radius.circular(topRight),
                   topRight: Radius.circular(topRight))),
-          child: Padding(
-            padding: EdgeInsets.only(left: 40, right: 20, top: 10, bottom: 10),
-            child: TextField(
-              controller: userNameController,
-              decoration: InputDecoration(
-                  border: InputBorder.none,
-                  hintText: "User name",
-                  hintStyle: TextStyle(color: Color(0xFFE1E1E1), fontSize: 14)),
-            ),
-          ),
+          child: new Column(
+            children: <Widget>[
+              Container(
+                padding: EdgeInsets.only(left: 40, right: 20, top: 10, bottom: 10),
+                decoration: BoxDecoration(
+                  border: Border(
+                    bottom: BorderSide(width: 1, color: Colors.grey),
+                  ),
+                ),
+                child: TextField(
+                  decoration: InputDecoration(
+                      border: InputBorder.none,
+                      hintText: "User name",
+                      hintStyle: TextStyle(color: Color(0xFFE1E1E1), fontSize: 14)),
+                ),
+              ),
+              Padding(
+                padding: EdgeInsets.only(left: 40, right: 20, top: 10, bottom: 10),
+                child: TextField(
+                  obscureText: true,
+                  decoration: InputDecoration(
+                      border: InputBorder.none,
+                      hintText: "Pass word",
+                      hintStyle: TextStyle(color: Color(0xFFE1E1E1), fontSize: 14)),
+                ),
+              ),
+            ],
+          )
         ),
       ),
     );
