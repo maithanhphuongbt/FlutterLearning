@@ -1,7 +1,10 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_facebook_login/flutter_facebook_login.dart';
+import 'package:flutter_redux/flutter_redux.dart';
 import 'package:flutter_tutorial_chain/login/view/InputWidget.dart';
+import 'package:flutter_tutorial_chain/login/viewmodel/LoginViewModel.dart';
+import 'package:flutter_tutorial_chain/redux/app/AppState.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 class ForceGround extends StatefulWidget {
@@ -14,7 +17,6 @@ class _ForceGroundState extends State<ForceGround> {
 
   @override
   Widget build(BuildContext context) {
-
     // init google sign in
 
     final GoogleSignIn _googleSignIn = GoogleSignIn();
@@ -75,46 +77,80 @@ class _ForceGroundState extends State<ForceGround> {
           padding:
               EdgeInsets.only(top: MediaQuery.of(context).size.height / 2.3),
         ),
-        Column(
-          children: <Widget>[
-            ///holds email header and inputField
+        StoreConnector<AppState, LoginViewModel>(
+          converter: (store) => LoginViewModel.fromStore(store),
+          builder: (_,viewModel) =>
             Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                Stack(
-                  alignment: Alignment.bottomRight,
+                ///holds email header and inputField
+                viewModel.loginStatus ?
+                new Container(
+                  child: new TextField(
+                    maxLines: 1,
+                    style: Theme.of(context).textTheme.title,
+                    decoration: new InputDecoration(
+                        labelText: "Observation",
+                        isDense: true
+                    ),
+                  ),
+                ): new Container(),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
-                    InputWidget(30.0, 0.0),
-                    Padding(
-                        padding: EdgeInsets.only(right: 50),
-                        child: Row(
-                          children: <Widget>[
-
-                          ],
-                        ))
+                    Stack(
+                      alignment: Alignment.bottomRight,
+                      children: <Widget>[
+                        InputWidget(30.0, 0.0, viewModel),
+                        Padding(
+                            padding: EdgeInsets.only(right: 50),
+                            child: Row(
+                              children: <Widget>[
+                                Expanded(child: Container()),
+                                Container(
+                                    padding: EdgeInsets.all(10),
+                                    decoration: ShapeDecoration(
+                                      shape: CircleBorder(),
+                                      gradient: LinearGradient(
+                                          colors: loginEmail,
+                                          begin: Alignment.topLeft,
+                                          end: Alignment.bottomRight),
+                                    ),
+                                    child: GestureDetector(
+                                      onTap: (){
+                                        viewModel.login(viewModel.email,viewModel.password);
+                                      },
+                                      child: ImageIcon(
+                                        AssetImage("images/ic_forward.png"),
+                                        size: 40,
+                                        color: Colors.white,
+                                      ),
+                                    )
+                                ),
+                              ],
+                            ))
+                      ],
+                    ),
                   ],
                 ),
-              ],
-            ),
-            Padding(
-              padding: EdgeInsets.only(bottom: 50),
-            ),
-            roundedRectButton(
-                "Login with gmail", loginEmail, false, _handleSignIn),
+                Padding(
+                  padding: EdgeInsets.only(bottom: 50),
+                ),
+                roundedRectButton(
+                    "Login with gmail", loginEmail, false, _handleSignIn),
 //            roundedRectButton(
 //                "Login out gmail", logOutEmail, false, _handleSignOut),
-            roundedRectButton(
-                "Login with facebook", loginFacebook, false, initiateFacebookLogin),
-
-          ],
+                roundedRectButton("Login with facebook", loginFacebook, false,
+                    initiateFacebookLogin),
+              ],
+            )
         )
       ],
     );
   }
 }
 
-Widget roundedRectButton(String title, List<Color> gradient,
-    bool isEndIconVisible, handleSignIn()) {
+Widget roundedRectButton(
+    String title, List<Color> gradient, bool isEndIconVisible, handleSignIn()) {
   return Builder(builder: (BuildContext mContext) {
     return GestureDetector(
       onTap: () {

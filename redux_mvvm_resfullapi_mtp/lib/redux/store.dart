@@ -11,7 +11,7 @@ Future<Store<AppState>> createStore() async {
     appReducer,
     initialState: AppState.initial(),
     middleware: [
-      LoginMiddleware()
+      LoginMiddleware(),
     ]
   );
 }

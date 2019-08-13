@@ -26,17 +26,19 @@ class _ForceGroundState extends State<ForceGround> {
             builder: (_,viewModel) =>
                 Column(
                   children: <Widget>[
-                    viewModel.loginStatus == LoginStatus.success?
-                    new Container(
-                      child: new TextField(
-                        maxLines: 1,
-                        style: Theme.of(context).textTheme.title,
-                        decoration: new InputDecoration(
-                            labelText: "Observation",
-                            isDense: true
-                        ),
-                      ),
-                    ): new Container(),
+//                    viewModel.loginStatus == LoginStatus.success?
+//                    new Container(
+//                      child: new TextField(
+//                        maxLines: 1,
+//                        style: Theme.of(context).textTheme.title,
+//                        decoration: new InputDecoration(
+//                            labelText: "Observation",
+//                            isDense: true
+//                        ),
+//                      ),
+//                    ): new Container(),
+//                    viewModel.loginStatus == LoginStatus.success?
+//                    viewModel.navigateToRegistration():
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[

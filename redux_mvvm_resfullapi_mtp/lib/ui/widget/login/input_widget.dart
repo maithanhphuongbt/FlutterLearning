@@ -36,7 +36,7 @@ class InputWidget extends StatelessWidget {
                   child: TextField(
                     onChanged: (userName){
                       viewModel.inputUserName(userName);
-                      print(viewModel.inputUserName(userName));
+                      print(userName);
                     },
                     decoration: InputDecoration(
                         border: InputBorder.none,
@@ -52,7 +52,7 @@ class InputWidget extends StatelessWidget {
                     obscureText: true,
                     onChanged: (password) {
                       viewModel.inputPassword(password);
-                      print(viewModel.inputPassword(password));
+                      print(password);
                     },
                     decoration: InputDecoration(
                         border: InputBorder.none,

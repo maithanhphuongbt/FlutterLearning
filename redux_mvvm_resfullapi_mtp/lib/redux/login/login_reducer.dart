@@ -1,5 +1,4 @@
 import 'package:redux/redux.dart';
-
 import 'login_action.dart';
 import 'login_state.dart';
 
@@ -20,3 +19,4 @@ LoginState _validateLoginFieldsAction(LoginState state, ValidateLoginFields acti
 
 LoginState _loginAction(LoginState state, LoginAction action) =>
     state.copyWith(loginStatus: action.status);
+

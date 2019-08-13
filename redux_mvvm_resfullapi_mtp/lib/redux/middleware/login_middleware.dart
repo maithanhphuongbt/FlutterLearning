@@ -4,6 +4,7 @@ import 'package:redux_mvvm_resfullapi_mtp/redux/app/app_state.dart';
 import 'package:redux_mvvm_resfullapi_mtp/redux/login/login_action.dart';
 import 'package:redux_mvvm_resfullapi_mtp/service/APIInterface.dart';
 import 'package:redux_mvvm_resfullapi_mtp/utils/constants.dart';
+import 'package:redux_mvvm_resfullapi_mtp/utils/keys.dart';
 
 class LoginMiddleware extends MiddlewareClass<AppState> {
   @override
@@ -13,6 +14,9 @@ class LoginMiddleware extends MiddlewareClass<AppState> {
         print(result);
         next(new LoginAction(
             result == LOGIN_SUCCESS ? LoginStatus.success : LoginStatus.fail));
+            if (result ==  LOGIN_SUCCESS) {
+               Keys.navKey.currentState.pushNamed("/home");
+            }
       });
     }
     next(action);

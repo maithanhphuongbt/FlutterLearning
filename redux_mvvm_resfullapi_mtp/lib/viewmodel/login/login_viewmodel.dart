@@ -28,7 +28,7 @@ class LoginViewModel {
       this.userNameError,
       this.inputUserName,
       this.inputPassword,
-      this.login});
+      this.login,});
 
   static LoginViewModel fromStore(Store<AppState> store) {
     return LoginViewModel(
@@ -45,6 +45,5 @@ class LoginViewModel {
           store.dispatch(new ValidateLoginFields(userName, password));
         },
     );
-
   }
 }

@@ -1,52 +1,68 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_tutorial_chain/login/viewmodel/LoginViewModel.dart';
 
 class InputWidget extends StatelessWidget {
   final double topRight;
   final double bottomRight;
-
-  InputWidget(this.topRight, this.bottomRight);
+  final LoginViewModel viewModel;
+  InputWidget(this.topRight, this.bottomRight, this.viewModel);
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
+    return new Padding(
       padding: EdgeInsets.only(right: 40, bottom: 30, left: 40),
       child: Container(
-        width: MediaQuery.of(context).size.width - 40,
+        width: MediaQuery
+            .of(context)
+            .size
+            .width - 40,
         child: Material(
-          elevation: 10,
-          color: Colors.white,
-          shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.only(
-                  bottomLeft: Radius.circular(topRight),
-                  topRight: Radius.circular(topRight))),
-          child: new Column(
-            children: <Widget>[
-              Container(
-                padding: EdgeInsets.only(left: 40, right: 20, top: 10, bottom: 10),
-                decoration: BoxDecoration(
-                  border: Border(
-                    bottom: BorderSide(width: 1, color: Colors.grey),
+            elevation: 10,
+            color: Colors.white,
+            shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.only(
+                    bottomLeft: Radius.circular(topRight),
+                    topRight: Radius.circular(topRight))),
+            child: new Column(
+              children: <Widget>[
+                Container(
+                  padding: EdgeInsets.only(
+                      left: 40, right: 20, top: 10, bottom: 10),
+                  decoration: BoxDecoration(
+                    border: Border(
+                      bottom: BorderSide(width: 1, color: Colors.grey),
+                    ),
+                  ),
+                  child: TextField(
+                    onChanged: (email){
+                      viewModel.validateEmail(email);
+                      print("validate email");
+                    },
+                    decoration: InputDecoration(
+                        border: InputBorder.none,
+                        hintText: "User name",
+                        hintStyle: TextStyle(
+                            color: Color(0xFFE1E1E1), fontSize: 14)),
                   ),
                 ),
-                child: TextField(
-                  decoration: InputDecoration(
-                      border: InputBorder.none,
-                      hintText: "User name",
-                      hintStyle: TextStyle(color: Color(0xFFE1E1E1), fontSize: 14)),
+                Padding(
+                  padding: EdgeInsets.only(
+                      left: 40, right: 20, top: 10, bottom: 10),
+                  child: TextField(
+                    obscureText: true,
+                    onChanged: (password) {
+                      viewModel.validatePassword(password);
+                      print("validate password");
+                    },
+                    decoration: InputDecoration(
+                        border: InputBorder.none,
+                        hintText: "Pass word",
+                        hintStyle: TextStyle(
+                            color: Color(0xFFE1E1E1), fontSize: 14)),
+                  ),
                 ),
-              ),
-              Padding(
-                padding: EdgeInsets.only(left: 40, right: 20, top: 10, bottom: 10),
-                child: TextField(
-                  obscureText: true,
-                  decoration: InputDecoration(
-                      border: InputBorder.none,
-                      hintText: "Pass word",
-                      hintStyle: TextStyle(color: Color(0xFFE1E1E1), fontSize: 14)),
-                ),
-              ),
-            ],
-          )
+              ],
+            )
         ),
       ),
     );

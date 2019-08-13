@@ -16,4 +16,8 @@ module.exports = function (app) {
 
     // Delete a User with Id
     app.delete('/api/user/:userId', user.delete);
+
+    // Login
+
+    app.post('/api/user/authenticate', user.authenticate)
 }
